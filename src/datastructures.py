@@ -30,13 +30,9 @@ class FamilyStructure:
         for member in self._members:
             if member["id"]==id:
                 self._members.remove(member)
-                print(f"User {member["name"]} se ha eliminado")
-                return{
-                    "Done": "true"
-                }
-            return{
-                "error": f"No se encontro ningun member con ese ID {id}"
-            }
+                print(f'User {member["first_name"]} se ha eliminado')
+                
+        
 
     def get_member(self, id):
         # fill this method and update the return

@@ -33,6 +33,17 @@ jackson_family.add_member({
     "lucky_numbers": [1]
 })
 
+jackson_family.add_member({
+    "first_name": "Joan",
+    "age": 12,
+    "lucky_numbers": [21,43]
+})
+
+jackson_family.add_member({
+    "first_name": "Tommy",
+    "age": 23,
+    "lucky_numbers": [34,65,23,4,6]
+})
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
@@ -54,7 +65,7 @@ def handle_hello():
         "family": members
     }
 
-    return jsonify(response_body), 200
+    return jsonify(members), 200
 
 @app.route('/members', methods=['POST'])
 def add_family():
@@ -64,12 +75,8 @@ def add_family():
 
 @app.route('/members/<int:id>', methods=['DELETE'])
 def remove_family(id):
-    member = jackson_family.get_member(id)
-    if member:
-        jackson_family.delete_member(id)
-        return jsonify({"message" : "Member deleted"}),205
-    else:
-        return jsonify({"message" : "Member not deleted"}),406
+    jackson_family.delete_member(id)
+    return jsonify({"message" : "Member deleted"}), 200
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
